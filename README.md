@@ -46,13 +46,16 @@ index=ssh_logs | stats count by event_type
 #### 📸 Screenshots:
 
 **1. Upload Data Screen**
+
 ![Ref 1.1 - Upload Data](screenshots/ref1_upload.png)
 
 
 **2. Sourcetype Configuration (_json)**
+
 ![Ref 1.2 - Sourcetype](screenshots/ref1_sourcetype.png)
 
 **3. Index Creation (ssh_logs)**
+
 ![Ref 1.3 - Index](screenshots/ref1_index.png)
 
 **4. Validation Search Result**
