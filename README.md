@@ -46,26 +46,18 @@ index=ssh_logs | stats count by event_type
 #### 📸 Screenshots:
 
 **1. Upload Data Screen**
-md
 ![Ref 1.1 - Upload Data](screenshots/ref1_upload.png)
 
 
 **2. Sourcetype Configuration (_json)**
-
-md
 ![Ref 1.2 - Sourcetype](screenshots/ref1_sourcetype.png)
 
 **3. Index Creation (ssh_logs)**
-
-```md
 ![Ref 1.3 - Index](screenshots/ref1_index.png)
-```
 
 **4. Validation Search Result**
 
-```md
 ![Ref 1.4 - Validation Query](screenshots/ref1_validation.png)
-```
 
 📝 *Ref 1: SSH log successfully ingested and parsed in Splunk*
 
