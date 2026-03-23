@@ -1,1 +1,133 @@
+############################################################
+# SSH LOG ANALYSIS USING SPLUNK - SPL QUERIES COLLECTION
+############################################################
+
+##############################
+# 1. VALIDATION QUERY
+##############################
+# Purpose:
+# Verify that logs are successfully ingested and event_type is extracted
+
+index=ssh_logs 
+| stats count by event_type
+
+
+##############################
+# 2. FAILED LOGIN ANALYSIS
+##############################
+# Purpose:
+# Identify IP addresses generating failed SSH login attempts
+
+index=ssh_logs event_type="Failed SSH Login"
+| stats count by id.orig_h
+| sort -count
+| head 10
+
+
+##############################
+# 3. FAILED LOGIN (DETAILED VIEW)
+##############################
+# Purpose:
+# View detailed failed login events
+
+index=ssh_logs event_type="Failed SSH Login"
+| table _time, id.orig_h, id.resp_h, auth_attempts
+
+
+##############################
+# 4. BRUTE FORCE DETECTION
+##############################
+# Purpose:
+# Detect multiple failed authentication attempts (potential brute-force)
+
+index=ssh_logs event_type="Multiple Failed Authentication Attempts"
+| stats count by id.orig_h, id.resp_h
+
+
+##############################
+# 5. BRUTE FORCE (THRESHOLD >5)
+##############################
+# Purpose:
+# Detect IPs with more than 5 authentication attempts
+
+index=ssh_logs event_type="Multiple Failed Authentication Attempts"
+| stats sum(auth_attempts) as total_attempts by id.orig_h, id.resp_h
+| where total_attempts > 5
+| sort -total_attempts
+
+
+##############################
+# 6. SUCCESSFUL LOGIN ANALYSIS
+##############################
+# Purpose:
+# Identify successful SSH logins
+
+index=ssh_logs event_type="Successful SSH Login"
+| stats count by id.orig_h, id.resp_h
+| sort -count
+
+
+##############################
+# 7. SUCCESSFUL LOGIN (DETAIL VIEW)
+##############################
+# Purpose:
+# Show detailed successful login events
+
+index=ssh_logs event_type="Successful SSH Login"
+| table _time, id.orig_h, id.resp_h
+
+
+##############################
+# 8. CORRELATION (FAILED → SUCCESS)
+##############################
+# Purpose:
+# Detect potential compromised accounts (failed attempts followed by success)
+
+index=ssh_logs (event_type="Failed SSH Login" OR event_type="Successful SSH Login")
+| stats count by id.orig_h, event_type
+| sort id.orig_h
+
+
+##############################
+# 9. UNAUTHENTICATED CONNECTION DETECTION
+##############################
+# Purpose:
+# Identify SSH connections without authentication
+
+index=ssh_logs event_type="Connection Without Authentication"
+| stats count by id.orig_h
+| sort -count
+
+
+##############################
+# 10. UNAUTHENTICATED CONNECTION TIME ANALYSIS
+##############################
+# Purpose:
+# Monitor unauthenticated activity over time
+
+index=ssh_logs event_type="Connection Without Authentication"
+| timechart count by id.orig_h
+
+
+##############################
+# 11. TOP ATTACKER IPs (GLOBAL VIEW)
+##############################
+# Purpose:
+# Identify top suspicious IPs across all malicious activities
+
+index=ssh_logs (event_type="Failed SSH Login" OR event_type="Multiple Failed Authentication Attempts")
+| stats count by id.orig_h
+| sort -count
+| head 10
+
+
+##############################
+# 12. ALERT QUERY (BRUTE FORCE DETECTION)
+##############################
+# Purpose:
+# Trigger alert if an IP exceeds login attempt threshold within time window
+
+index=ssh_logs event_type="Multiple Failed Authentication Attempts"
+| stats sum(auth_attempts) as total_attempts by id.orig_h
+| where total_attempts > 5
 
