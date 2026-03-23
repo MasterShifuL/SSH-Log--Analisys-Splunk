@@ -48,7 +48,7 @@ index=ssh_logs | stats count by event_type
 **1. Upload Data Screen**
 
 ```md
-![Ref 1.1 - Upload Data](screenshots/ref1_upload.png)
+!screenshots/ref1_upload.png
 ```
 
 **2. Sourcetype Configuration (_json)**
