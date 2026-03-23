@@ -83,15 +83,11 @@ index=ssh_logs event_type="Failed SSH Login"
 
 **1. Search Query Result**
 
-```md
 ![Ref 2.1 - Failed Login Result](screenshots/ref2_result.png)
-```
 
 **2. Bar Chart Visualization**
 
-```md
 ![Ref 2.2 - Bar Chart](screenshots/ref2_barchart.png)
-```
 
 📝 *Ref 2: Top source IPs generating failed SSH login attempts*
 
@@ -112,15 +108,11 @@ index=ssh_logs event_type="Multiple Failed Authentication Attempts"
 
 **1. Search Result**
 
-```md
 ![Ref 3.1 - Brute Force Result](screenshots/ref3_result.png)
-```
 
 **2. Alert Configuration Page**
 
-```md
 ![Ref 3.3 - Alert Setup](screenshots/ref3_alert.png)
-```
 
 📝 *Ref 3: Detection of brute-force attack patterns and alert setup*
 
@@ -141,15 +133,11 @@ index=ssh_logs event_type="Successful SSH Login"
 
 **1. Search Result**
 
-```md
 ![Ref 4.1 - Successful Login](screenshots/ref4_result.png)
-```
 
 **2. Dashboard Panel**
 
-```md
 ![Ref 4.2 - Dashboard Panel](screenshots/ref4_dashboard.png)
-```
 
 📝 *Ref 4: Monitoring successful SSH login activity*
 
@@ -177,15 +165,11 @@ index=ssh_logs event_type="Connection Without Authentication"
 
 **1. Search Result**
 
-```md
 ![Ref 5.1 - Unauthenticated Result](screenshots/ref5_result.png)
-```
 
 **2. Timechart Visualization**
 
-```md
 ![Ref 5.2 - Timechart](screenshots/ref5_timechart.png)
-```
 
 📝 *Ref 5: Detection of suspicious SSH connections without authentication*
 
@@ -202,9 +186,7 @@ Create a dashboard combining:
 
 #### 📸 Screenshots:
 
-```md
 ![Ref 6 - Full Dashboard](screenshots/ref6_dashboard.png)
-```
 
 📝 *Ref 6: Security monitoring dashboard for SSH activity*
 
